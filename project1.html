@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My First Webpage</title>
+  <style>
+    /* Basic reset and styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header, main, footer {
+      margin: 20px 0;
+    }
+
+    h1 {
+      color: #233e58;
+    }
+
+    p {
+      font-size: 18px;
+      color: #333;
+    }
+
+    img {
+      width: 300px;
+      display: block;
+      margin: 0 auto 20px;
+    }
+
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #3ab929;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My First Webpage</h1>
+  </header>
+
+  <main>
+    <p>This is a simple webpage created using HTML, styled with CSS, and made interactive using JavaScript.</p>
+    <img src="https://via.placeholder.com/300" alt="Placeholder Image">
+    <p>Learn more at <a href="https://example.com" target="_blank">example.com</a></p>
+    <button onclick="showMessage()">Click Me!</button>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Webpage. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function showMessage() {
+      alert("Hello, welcome to my webpage!");
+    }
+  </script>
+
+</body>
+</html>

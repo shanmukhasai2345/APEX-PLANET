@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Intermediate Web Project</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #f0f4f8 0%, #a18cd1 50%, #ffe082 100%);
+      min-height: 100vh;
+    }
+
+    header, footer {
+      background: linear-gradient(90deg, #a18cd1 0%, #2a9d8f 60%, #e76f51 100%);
+      color: white;
+      padding: 16px 10px;
+      text-align: center;
+      letter-spacing: 2px;
+      box-shadow: 0 2px 8px rgba(44, 62, 80, 0.1);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    form {
+      background: linear-gradient(120deg, #fff 40%, #a18cd1 80%, #f4a261 100%);
+      padding: 28px 20px;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(44, 62, 80, 0.08);
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #6c3483;
+    }
+
+    form input[type="text"],
+    form input[type="email"] {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 18px 0;
+      border: 2px solid #a18cd1;
+      border-radius: 6px;
+      background: #e0f7fa;
+      font-size: 1em;
+      transition: border 0.2s;
+    }
+
+    form input[type="text"]:focus,
+    form input[type="email"]:focus {
+      border: 2px solid #e76f51;
+      outline: none;
+    }
+
+    form input[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #a18cd1 0%, #2a9d8f 60%, #e76f51 100%);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    form input[type="submit"]:hover {
+      background: linear-gradient(90deg, #e76f51 0%, #a18cd1 60%, #2a9d8f 100%);
+    }
+
+    #formMessage {
+      font-size: 0.95em;
+      margin-top: -5px;
+    }
+
+    .todo-container {
+      background: linear-gradient(120deg, #fff 40%, #a18cd1 80%, #43bccd 100%);
+      padding: 28px 20px;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(44, 62, 80, 0.08);
+    }
+
+    .todo-container h2 {
+      color: #a18cd1;
+    }
+
+    #taskInput {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 18px 0;
+      border: 2px solid #a18cd1;
+      border-radius: 6px;
+      background: #f1faee;
+      font-size: 1em;
+      transition: border 0.2s;
+    }
+
+    #taskInput:focus {
+      border: 2px solid #e76f51;
+      outline: none;
+    }
+
+    .todo-container button,
+    .todo-container button[type="button"] {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(90deg, #a18cd1 0%, #43bccd 60%, #e9c46a 100%);
+      color: #264653;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: background 0.2s;
+    }
+
+    .todo-container button:hover,
+    .todo-container button[type="button"]:hover {
+      background: linear-gradient(90deg, #e9c46a 0%, #a18cd1 60%, #43bccd 100%);
+      color: #e76f51;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background: linear-gradient(90deg, #a18cd1 0%, #e0f7fa 60%, #f4a261 100%);
+      margin: 7px 0;
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 6px;
+      font-size: 1.05em;
+      box-shadow: 0 2px 6px rgba(44, 62, 80, 0.05);
+      animation: fadeIn 0.4s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    li button {
+      background: linear-gradient(90deg, #a18cd1 0%, #e76f51 60%, #f4a261 100%);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 6px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: background 0.2s;
+    }
+    li button:hover {
+      background: linear-gradient(90deg, #b63a1b 0%, #a18cd1 60%, #e76f51 100%);
+    }
+
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Intermediate HTML, CSS, and JavaScript</h1>
+  </header>
+
+  <main>
+    <!-- Contact Form -->
+    <form id="contactForm">
+      <h2>Contact Form</h2>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" placeholder="Your Name" required />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Your Email" required />
+
+      <input type="submit" value="Submit" />
+      <p id="formMessage"></p>
+    </form>
+
+    <!-- Dynamic To-Do List -->
+    <div class="todo-container">
+      <h2>To-Do List</h2>
+      <input type="text" id="taskInput" placeholder="Enter a task" />
+      <button onclick="addTask()" aria-label="Add task to list">Add Task</button>
+      <ul id="taskList"></ul>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 ApexPlanet | Task-2 Web Dev</p>
+  </footer>
+
+  <script>
+    // Form Validation
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('formMessage');
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!name || !emailRegex.test(email)) {
+        message.style.color = "red";
+        message.textContent = "Please enter a valid name and email.";
+      } else {
+        message.style.color = "green";
+        message.textContent = `Thank you, ${name}. Your form is submitted.`;
+        this.reset();
+      }
+    });
+
+    // Load saved tasks
+    window.onload = function () {
+      const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      savedTasks.forEach(taskText => createTask(taskText));
+    }
+
+    // Add Task
+    function addTask() {
+      const taskInput = document.getElementById("taskInput");
+      const taskText = taskInput.value.trim();
+      if (taskText === "") return;
+      createTask(taskText);
+      saveTask(taskText);
+      taskInput.value = "";
+    }
+
+    // Create and display task
+    function createTask(taskText) {
+      const taskList = document.getElementById("taskList");
+      const li = document.createElement("li");
+      li.textContent = taskText;
+
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "Remove";
+      removeBtn.onclick = () => {
+        if (confirm("Do you really want to remove this task?")) {
+          li.remove();
+          removeTask(taskText);
+        }
+      };
+
+      li.appendChild(removeBtn);
+      taskList.appendChild(li);
+    }
+
+    // Save task to localStorage
+    function saveTask(taskText) {
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      tasks.push(taskText);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    // Remove task from localStorage
+    function removeTask(taskText) {
+      let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      tasks = tasks.filter(task => task !== taskText);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Web Development Quiz</title>
+    <style>
+        /* Vibrant & Stylish Theme */
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #6c5ce7 0%, #a18cd1 100%);
+            color: #2d3436;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 25px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #6c5ce7;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+        }
+
+        .quiz-container {
+            background-color: #ffeaa7;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            color: #2d3436;
+        }
+
+        .options {
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: block;
+            margin: 12px 0;
+            padding: 12px 20px;
+            background-color: #fff;
+            border: 2px solid #6c5ce7;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background-color: #6c5ce7;
+            color: #fff;
+            transform: translateX(10px);
+        }
+
+        .option.selected {
+            background-color: #6c5ce7;
+            color: white;
+        }
+
+        .option.correct {
+            background-color: #00b894;
+            border-color: #00b894;
+            color: white;
+        }
+
+        .option.incorrect {
+            background-color: #ff7675;
+            border-color: #ff7675;
+            color: white;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 15px 30px;
+            background-color: #6c5ce7;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            background-color: #5541d7;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        button:disabled {
+            background-color: #b2bec3;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .result {
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #6c5ce7;
+        }
+
+        .api-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #74b9ff;
+            border-radius: 12px;
+            color: #fff;
+        }
+
+        .api-section h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .api-data {
+            margin-top: 15px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            border-left: 6px solid #6c5ce7;
+            color: #2d3436;
+            font-size: 1.1em;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .question {
+                font-size: 1.1em;
+            }
+
+            .option {
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.3em;
+                margin-bottom: 20px;
+            }
+
+            .question {
+                font-size: 1em;
+            }
+
+            .api-section h2 {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Web Development Quiz</h1>
+        
+        <div class="quiz-container">
+            <div id="question-container">
+                <!-- Questions will be inserted here by JavaScript -->
+            </div>
+            <button id="next-btn" disabled>Next Question</button>
+            <div id="result" class="result"></div>
+        </div>
+
+        <div class="api-section">
+            <h2>Random Programming Fact</h2>
+            <button id="fetch-btn">Get New Fact</button>
+            <div id="api-data" class="api-data">
+                Click the button to fetch a random programming fact!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Questions
+        const questions = [
+            {
+                question: "What does CSS stand for?",
+                options: [
+                    "Computer Style Sheets",
+                    "Creative Style Sheets",
+                    "Cascading Style Sheets",
+                    "Colorful Style Sheets"
+                ],
+                answer: 2
+            },
+            {
+                question: "Which HTML tag is used to link a JavaScript file?",
+                options: [
+                    "<script>",
+                    "<javascript>",
+                    "<js>",
+                    "<link>"
+                ],
+                answer: 0
+            },
+            {
+                question: "What is the purpose of media queries in CSS?",
+                options: [
+                    "To query media files like images and videos",
+                    "To apply different styles based on device characteristics",
+                    "To create multimedia content",
+                    "To optimize media loading"
+                ],
+                answer: 1
+            },
+            {
+                question: "Which method is used to fetch data from an API in JavaScript?",
+                options: [
+                    "fetch()",
+                    "get()",
+                    "request()",
+                    "ajax()"
+                ],
+                answer: 0
+            }
+        ];
+
+        // Quiz Variables
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedOption = null;
+
+        // DOM Elements
+        const questionContainer = document.getElementById('question-container');
+        const nextBtn = document.getElementById('next-btn');
+        const resultDiv = document.getElementById('result');
+        const fetchBtn = document.getElementById('fetch-btn');
+        const apiDataDiv = document.getElementById('api-data');
+
+        // Initialize Quiz
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            const optionsHtml = question.options.map((option, index) => 
+                `<div class="option" data-index="${index}">${option}</div>`
+            ).join('');
+
+            questionContainer.innerHTML = `
+                <div class="question">${currentQuestionIndex + 1}. ${question.question}</div>
+                <div class="options">${optionsHtml}</div>
+            `;
+
+            // Add event listeners to options
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', selectOption);
+            });
+
+            // Reset next button
+            nextBtn.disabled = true;
+            selectedOption = null;
+        }
+
+        // Select Option
+        function selectOption(e) {
+            const selectedIndex = parseInt(e.target.getAttribute('data-index'));
+            const options = document.querySelectorAll('.option');
+
+            // Remove previous selection
+            options.forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Mark selected option
+            e.target.classList.add('selected');
+            selectedOption = selectedIndex;
+            nextBtn.disabled = false;
+        }
+
+        // Check Answer and Move to Next Question
+        function nextQuestion() {
+            if (selectedOption === null) return;
+
+            const question = questions[currentQuestionIndex];
+            const options = document.querySelectorAll('.option');
+
+            // Disable all options
+            options.forEach(option => {
+                option.style.cursor = 'default';
+                option.removeEventListener('click', selectOption);
+            });
+
+            // Mark correct and incorrect answers
+            options[question.answer].classList.add('correct');
+            if (selectedOption !== question.answer) {
+                options[selectedOption].classList.add('incorrect');
+            }
+
+            // Update score if correct
+            if (selectedOption === question.answer) {
+                score++;
+            }
+
+            // Move to next question or show results
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                nextBtn.textContent = 'Next Question';
+                setTimeout(() => {
+                    showQuestion();
+                }, 1500);
+            } else {
+                showResults();
+            }
+        }
+
+        // Show Quiz Results
+        function showResults() {
+            questionContainer.innerHTML = '';
+            nextBtn.style.display = 'none';
+            resultDiv.textContent = `Quiz completed! Your score: ${score} out of ${questions.length}`;
+        }
+
+        // Fetch Programming Fact from API
+        async function fetchProgrammingFact() {
+            try {
+                apiDataDiv.textContent = 'Loading...';
+                const response = await fetch('https://uselessfacts.jsph.pl/api/v2/facts/random?language=en');
+                const data = await response.json();
+                apiDataDiv.textContent = data.text;
+            } catch (error) {
+                apiDataDiv.textContent = 'Failed to fetch fact. Please try again.';
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Event Listeners
+        nextBtn.addEventListener('click', nextQuestion);
+        fetchBtn.addEventListener('click', fetchProgrammingFact);
+
+        // Start Quiz
+        showQuestion();
+    </script>
+</body>
+</html>
